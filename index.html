@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Watch Together</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="app">
+  <header><div class="logo">🌙 Watch Together</div><button id="logout" class="hidden">Log out</button></header>
+
+  <main>
+    <section id="auth" class="card">
+      <h1>Watch together, from anywhere.</h1>
+      <p class="muted">Create a room, invite friends, chat, and synchronize a video.</p>
+      <input id="username" placeholder="Username" autocomplete="username">
+      <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+      <div class="row">
+        <button id="login">Log in</button><button id="register" class="secondary">Create account</button>
+      </div>
+      <p id="authMsg" class="error"></p>
+    </section>
+
+    <section id="home" class="hidden">
+      <div class="card">
+        <h2>Create a room</h2>
+        <input id="roomName" placeholder="Movie night 🍿">
+        <button id="createRoom">Create room</button>
+      </div>
+      <div class="card">
+        <h2>Join a room</h2>
+        <input id="joinCode" placeholder="Room code">
+        <button id="joinRoom">Join room</button>
+      </div>
+    </section>
+
+    <section id="room" class="hidden">
+      <div class="roomTop card">
+        <div><h2 id="roomTitle">Room</h2><span id="roomCode"></span></div>
+        <button id="copyInvite" class="secondary">Copy invite</button>
+      </div>
+
+      <div class="search card">
+        <h3>🔎 Find something to watch</h3>
+        <form id="searchForm">
+          <input id="searchInput" placeholder="Search the web...">
+          <button>Search</button>
+        </form>
+        <div id="searchResults"></div>
+      </div>
+
+      <div class="watchGrid">
+        <div class="card">
+          <h3>🎬 Video</h3>
+          <input id="videoUrl" placeholder="Direct video URL (.mp4/.webm)">
+          <button id="loadVideo">Load video</button>
+          <video id="video" controls playsinline></video>
+          <p class="muted small">Play/pause/seek is synchronized for everyone in the room. Many streaming sites block being embedded, so a normal website URL may not work inside this player.</p>
+        </div>
+
+        <div class="card chat">
+          <h3>💬 Chat</h3>
+          <div id="messages"></div>
+          <form id="chatForm"><input id="chatInput" placeholder="Say something..."><button>Send</button></form>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
