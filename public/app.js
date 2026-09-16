@@ -62,11 +62,33 @@ $("video").addEventListener("seeked",()=>{if(!suppress&&socket)socket.emit("medi
 $("chatForm").onsubmit=e=>{e.preventDefault();const text=$("chatInput").value.trim();if(text&&socket){socket.emit("chat:message",{text});$("chatInput").value=""}};
 $("searchForm").onsubmit=e=>{
   e.preventDefault();
-  const q=$("searchInput").value.trim();if(!q)return;
+
+  const q=$("searchInput").value.trim();
+  if(!q)return;
+
   const google="https://www.google.com/search?q="+encodeURIComponent(q);
-  $("searchResults").innerHTML=`<div class="result">Search opened in a new tab: <a href="${google}" target="_blank" rel="noopener">Search for "${escapeHtml(q)}"</a></div>`;
-  window.open(google,"_blank","noopener");
+
+  $("searchResults").innerHTML=`
+    <div class="result">
+      <button onclick="openInsideApp('${google}')">
+        Open inside Watch Together
+      </button>
+    </div>
+  `;
 };
+
+function openInsideApp(url){
+  $("searchResults").innerHTML=`
+    <div class="inAppBrowser">
+      <button onclick="location.reload()">← Back</button>
+      <iframe
+        src="${url}"
+        style="width:100%;height:70vh;border:0;border-radius:10px;"
+        allow="fullscreen">
+      </iframe>
+    </div>
+  `;
+}
 
 (async()=>{
   try{
